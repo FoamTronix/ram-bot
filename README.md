@@ -6,7 +6,7 @@ This repo contains plans and code for the battle bots where the focus is to ram 
 
 # Materials
 
-There are many different materials to build these battle bots out of, but our focus is on building them out of DollarTree Foam board (20x30-in. Readi-Board Foam Boards).  The foam board from the DollarTree (or similar stores) is very easy to work with, cut, and peel away the paper layers as needed.  It also easily allows for kids to get involved using their skills regardless of their age; glue, gluestick, pencils, colored pencils, crayons,
+There are many different materials to build these battle bots out of, but our focus is on building them out of DollarTree Foam board (20x30-in. Readi-Board Foam Boards).  The foam board from the DollarTree (or similar stores) is very easy to work with, cut, and peel away the paper layers as needed.  It also easily allows for kids of any age to get involved using the skills they have picked up in school; glue, gluestick, pencils, colored pencils, crayons, scissors, ruler, measure, cut, etc.
 
 
 # Contributing
