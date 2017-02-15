@@ -56,6 +56,6 @@ void replaceRange(int start_pos, int end_pos, char* vals) {
 
 void sendData() {
   Serial.println(data);
-  // BTSerial.write(data);
+  BTSerial.write(data);
 }
 
