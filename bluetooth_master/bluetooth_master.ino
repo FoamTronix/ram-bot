@@ -7,7 +7,7 @@ SoftwareSerial BTSerial(RxD, TxD); // RX, TX for Bluetooth
 #define JoystickUD 3               // Analog pin used for Up/Down on the Parallax Thumbstick
 #define JoystickLR 4               // Analog pin used for Left/Right on the Parallax Thumbstick
 
-char data[] = "+000|000";          // Array of size 9 (8 characters + null terminate).
+char data[] = "^+000|000";          // Array of size 9 (8 characters + null terminate).
                                    // Direction and Speed | Turn.  +/- for direction.
                                    // Speed is from -100 to 100, and -5 to 5 will be 0.
                                    // Turn 0 to 180, and 85 to 95 will be 90. 
@@ -29,8 +29,8 @@ void setDirectionAndSpeed() {
   if(vectorValRaw >= -5 && vectorValRaw <= 5) { vectorValRaw = 0; }
   String vectorVal = String( abs(vectorValRaw) );
   vectorVal.toCharArray(vector, 4); 
-  replaceRange(1, 3, vector);
-  data[0] = vectorValRaw >= 0 ? '+' : '-';
+  replaceRange(2, 4, vector);
+  data[1] = vectorValRaw >= 0 ? '+' : '-';
 }
 
 void setTurn() {
@@ -39,7 +39,7 @@ void setTurn() {
   if(turnValRaw >= 85 && turnValRaw <= 95) { turnValRaw = 90; }
   String turnVal = String(turnValRaw);
   turnVal.toCharArray(turn, 4);
-  replaceRange(5, 7, turn);
+  replaceRange(6, 8, turn);
 }
 
 void replaceRange(int start_pos, int end_pos, char* vals) {
@@ -55,7 +55,7 @@ void replaceRange(int start_pos, int end_pos, char* vals) {
 }
 
 void sendData() {
-  Serial.println(data);
   BTSerial.write(data);
+  Serial.println(data);
 }
 
