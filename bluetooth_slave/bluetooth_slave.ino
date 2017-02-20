@@ -1,5 +1,15 @@
 #include <SoftwareSerial.h>
 
+#define ONE_SECOND 1000
+
+#define M1_IB 4                    // Motor 1 Input B
+#define M1_IA 5                    // Motor 1 Input A
+#define M2_IB 6                    // Motor 2 Input B
+#define M2_IA 7                    // Motor 2 Input A
+
+                                   //  The circuit:
+                                   // * RX is digital pin 10 (connect to TX of other device)
+                                   // * TX is digital pin 11 (connect to RX of other device)
 #define TxD 2                      // Digital pin used to transmit data to the bluetooth module
 #define RxD 3                      // Digital pin used to receive data from the bluetooth module
 SoftwareSerial BTSerial(RxD, TxD); // RX, TX for Bluetooth
@@ -15,6 +25,17 @@ int vector = 0;            // Start out not moving.
 void setup() {
   Serial.begin(9600);
   BTSerial.begin(38400);   // Transmission speed used on the bluetooth module  
+
+  // Motors
+  pinMode(M1_IB, OUTPUT);
+  pinMode(M1_IA, OUTPUT); 
+  pinMode(M2_IB, OUTPUT);
+  pinMode(M2_IA, OUTPUT);   
+
+  digitalWrite(M1_IB, LOW);  
+  digitalWrite(M1_IA, LOW);  
+  digitalWrite(M2_IB, LOW);  
+  digitalWrite(M2_IA, LOW);  
 }
 
 void loop() {
@@ -31,7 +52,9 @@ boolean receivedCommand() {
       while(!BTSerial.available());                     // Wait for data to show up.
       data[i] = BTSerial.read(); 
     }
+    // Serial.println(data);
   } else {
+    //Serial.println("Bad Data");
     return false;                                       // Transmission has not started yet.
   }
   return validateCommand();                             // Validate the command that has been received.
@@ -58,6 +81,71 @@ void setSpeedAndDirection() {
 }
 
 void engage() {
-
+  if(vector > 0) { 
+    moveForward();
+  } else if(vector < 0) {
+    moveBackward();
+  } else {
+    stopMoving();
+  }
 }
 
+
+//##########################################
+// Motors
+//##########################################
+void testMotors() {
+  stopMoving();  
+  delay(ONE_SECOND);
+  moveForward();
+  delay(ONE_SECOND);
+  moveBackward();
+  delay(ONE_SECOND);
+//  turnLeft();
+//  delay(ONE_SECOND);
+//  turnRight();
+//  delay(ONE_SECOND);
+//  noTurn();
+//  stopMoving();  
+}
+
+void moveForward() {
+  Serial.println("Moving Foward");
+  digitalWrite(M1_IB, LOW);  
+  digitalWrite(M1_IA, HIGH);  
+  digitalWrite(M2_IB, LOW);  
+  digitalWrite(M2_IA, HIGH); 
+}
+
+void moveBackward() {  
+  Serial.println("Moving Backword");
+  digitalWrite(M1_IB, HIGH);  
+  digitalWrite(M1_IA, LOW);  
+  digitalWrite(M2_IB, HIGH);  
+  digitalWrite(M2_IA, LOW); 
+}
+
+//void noTurn() {
+//  digitalWrite(STEERING_A, LOW);
+//  digitalWrite(STEERING_B, LOW);
+//}
+//
+//void turnLeft() {
+//  digitalWrite(STEERING_A, HIGH);
+//  digitalWrite(STEERING_B, LOW);
+//}
+//
+//void turnRight() {
+//  digitalWrite(STEERING_A, LOW);
+//  digitalWrite(STEERING_B, HIGH);  
+//}
+
+void stopMoving() {
+  Serial.println("Stopped Moving");
+  digitalWrite(M1_IB, LOW);  
+  digitalWrite(M1_IA, LOW);  
+  digitalWrite(M2_IB, LOW);  
+  digitalWrite(M2_IA, LOW); 
+}
+//##########################################
+//##########################################

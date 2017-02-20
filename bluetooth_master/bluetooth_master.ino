@@ -1,5 +1,8 @@
 #include <SoftwareSerial.h>
-
+                                  
+                                   //  The circuit:
+                                   // * RX is digital pin 10 (connect to TX of other device)
+                                   // * TX is digital pin 11 (connect to RX of other device)
 #define TxD 2                      // Digital pin used to transmit data to the bluetooth module
 #define RxD 3                      // Digital pin used to receive data from the bluetooth module
 SoftwareSerial BTSerial(RxD, TxD); // RX, TX for Bluetooth
